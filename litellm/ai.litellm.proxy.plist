@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>ai.litellm.proxy</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>${HOME}/.local/bin/uvx</string>
+            <string>--with</string>
+            <string>google-cloud-aiplatform</string>
+            <string>litellm[proxy]</string>
+            <string>--config</string>
+            <string>${HOME}/.config/litellm/config.yaml</string>
+        </array>
+        <key>RunAtLoad</key>
+        <true />
+        <key>KeepAlive</key>
+        <true />
+        <key>StandardOutPath</key>
+        <string>${HOME}/Library/Logs/litellm/litellm.stdout.log</string>
+        <key>StandardErrorPath</key>
+        <string>${HOME}/Library/Logs/litellm/litellm.stderr.log</string>
+    </dict>
+</plist>

@@ -1,0 +1,28 @@
+model_list:
+  - model_name: qwen3-235b
+    litellm_params:
+      model: vertex_ai/qwen/qwen3-235b-a22b-instruct-2507-maas
+      vertex_project: my-gcp-project-id
+      vertex_location: us-south1
+  - model_name: qwen3-coder
+    litellm_params:
+      model: vertex_ai/qwen/qwen3-coder-480b-a35b-instruct-maas
+      vertex_project: my-gcp-project-id
+      vertex_location: us-south1
+
+litellm_settings:
+  drop_params: true
+  cache: true
+  cache_params:
+    type: "redis"
+    host: "localhost"
+    port: 6379
+
+prompt_cache:
+  type: "redis"
+  host: "localhost"
+  port: 6379
+
+general_settings:
+  master_key: sk-litellm-master-key
+  background_health_checks: true

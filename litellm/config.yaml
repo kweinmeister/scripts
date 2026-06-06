@@ -15,12 +15,12 @@ litellm_settings:
   cache: true
   cache_params:
     type: "redis"
-    host: "localhost"
+    host: "localhost" # DevSkim: ignore DS162092
     port: 6379
 
 prompt_cache:
   type: "redis"
-  host: "localhost"
+  host: "localhost" # DevSkim: ignore DS162092
   port: 6379
 
 general_settings:

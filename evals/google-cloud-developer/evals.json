@@ -59,10 +59,7 @@
         "Identifies that Cloud Run Jobs support task execution up to 168 hours (7 days) via --task-timeout"
       ],
       "expected_skill": "retrieving-developer-knowledge",
-      "acceptable_skills": [
-        "gcloud",
-        "finding-google-skills"
-      ]
+      "acceptable_skills": ["gcloud", "finding-google-skills"]
     },
     {
       "id": "gcd-005-catalog-skill-discovery",
@@ -73,10 +70,7 @@
         "Identifies standard skill naming conventions such as gke-*, spanner-basics, or bigquery-basics"
       ],
       "expected_skill": "finding-google-skills",
-      "acceptable_skills": [
-        "retrieving-developer-knowledge",
-        "gcloud"
-      ]
+      "acceptable_skills": ["retrieving-developer-knowledge", "gcloud"]
     },
     {
       "id": "gcd-006-storage-unattached-disks",
@@ -119,10 +113,7 @@
         "Explains that Worker Pools do not require an HTTP listener port"
       ],
       "expected_skill": "retrieving-developer-knowledge",
-      "acceptable_skills": [
-        "gcloud",
-        "finding-google-skills"
-      ]
+      "acceptable_skills": ["gcloud", "finding-google-skills"]
     },
     {
       "id": "gcd-009-cross-project-secret-iam",

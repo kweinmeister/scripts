@@ -2,15 +2,23 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "aiplatform",
+    "agentskills",
+    "cloudrun",
+    "CLOUDSDK",
+    "Codelab",
+    "dependapilot",
+    "DEVSKIM",
+    "evals",
+    "litellm",
+    "lockfiles",
     "megalint",
     "megalinter",
-    "KICS",
-    "DEVSKIM",
-    "lockfiles",
-    "ZIZMOR",
-    "litellm",
+    "noninteractive",
     "qwen",
-    "aiplatform",
-    "dependapilot"
+    "secretmanager",
+    "skillevaluator",
+    "UMSA",
+    "ZIZMOR"
   ]
 }

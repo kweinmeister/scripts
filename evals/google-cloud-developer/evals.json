@@ -1,0 +1,192 @@
+{
+  "skill_name": "google-cloud-developer",
+  "evals": [
+    {
+      "id": "gcd-001-explicit-auth",
+      "prompt": "A team is configuring an automated batch workload on Cloud Run in project sample-project-12345 that needs to read data from a Cloud Storage bucket. Provide the complete operational setup: specify the command to create a custom User-Managed Service Account, the gcloud deploy flag to attach this service identity directly to the Cloud Run service, the least-privilege IAM role required for reading Cloud Storage, and explain why downloadable keys and the default Compute Engine service account must not be used.",
+      "expected_output": "Specifies creating a custom User-Managed Service Account via gcloud iam service-accounts create batch-worker --project=sample-project-12345; specifies attaching it directly to Cloud Run using the --service-account flag; grants roles/storage.objectViewer to the custom service account; and warns against using downloadable JSON keys or the overly-permissive default Compute Engine service account.",
+      "assertions": [
+        "Specifies creating a custom User-Managed Service Account (UMSA) via gcloud iam service-accounts create in project sample-project-12345",
+        "Specifies attaching the service account directly to Cloud Run using the --service-account flag",
+        "Assigns a least-privilege role such as roles/storage.objectViewer directly to the custom service account",
+        "Explicitly warns against using downloadable service account keys and default compute service accounts"
+      ],
+      "expected_skill": "google-cloud-recipe-auth",
+      "acceptable_skills": [
+        "gcloud",
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-002-cloudrun-storage",
+      "prompt": "A team needs to mount a Cloud Storage bucket directly into a Cloud Run service as a read-only filesystem volume, and also securely inject a database password from Secret Manager. How should they configure this using gcloud run deploy flags?",
+      "expected_output": "Specifies --add-volume with type=cloud-storage, bucket name, and readonly=true; specifies mount-path (either within --add-volume or via --add-volume-mount); and specifies --update-secrets or --set-secrets for the Secret Manager secret.",
+      "assertions": [
+        "Specifies --add-volume with type=cloud-storage and bucket name",
+        "Specifies readonly=true on the volume configuration and specifies a mount path (via --add-volume-mount or inline volume mount syntax)",
+        "Specifies --update-secrets or --set-secrets for Secret Manager integration"
+      ],
+      "expected_skill": "gcloud",
+      "acceptable_skills": [
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-003-gcloud-noninteractive",
+      "prompt": "In an automated headless CI/CD pipeline, how do you inspect the active authenticated account and switch between project configurations without interactive browser prompts or blocking on manual input?",
+      "expected_output": "Recommends using gcloud auth list with --format=json or --format=value, and using named configurations via gcloud config configurations activate or environment variable CLOUDSDK_ACTIVE_CONFIG_NAME without interactive prompts.",
+      "assertions": [
+        "Uses non-interactive inspection flags such as --format=json or --format=value",
+        "Explains named configurations via gcloud config configurations activate or CLOUDSDK_ACTIVE_CONFIG_NAME",
+        "Recommends non-interactive authentication or execution safeguards (such as --quiet, service account credentials/impersonation, or headless flags)"
+      ],
+      "expected_skill": "gcloud",
+      "acceptable_skills": [
+        "google-cloud-recipe-auth",
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-004-batch-timeout-limits",
+      "prompt": "We have a data processing workflow that occasionally runs for 36 hours. A teammate proposed deploying it as an HTTP Cloud Run service with an extended timeout. Is this feasible on Cloud Run services, and what is the recommended architecture and flag to support jobs running beyond 60 minutes?",
+      "expected_output": "Explains that Cloud Run services have a hard maximum timeout of 60 minutes (3600s). Recommends Cloud Run Jobs, which support execution timeouts up to 168 hours (7 days) configured via --task-timeout.",
+      "assertions": [
+        "Identifies that Cloud Run services have a 60-minute maximum request timeout",
+        "Recommends Cloud Run Jobs for tasks exceeding 60 minutes",
+        "Identifies that Cloud Run Jobs support task execution up to 168 hours (7 days) via --task-timeout"
+      ],
+      "expected_skill": "retrieving-developer-knowledge",
+      "acceptable_skills": [
+        "gcloud",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-005-catalog-skill-discovery",
+      "prompt": "Our development team needs specialized agent skills for managing BigQuery pipelines, Google Kubernetes Engine (GKE) clusters, and Cloud Spanner databases. Which official skill catalog index should be queried, and what are the exact skill names available in the repository index?",
+      "expected_output": "References the official Google Cloud skills catalog index.json (https://github.com/google/skills/tree/main/skills/cloud) and identifies standard prefixes such as gke-*, spanner-basics, bigquery-basics.",
+      "assertions": [
+        "References the official skills catalog index or repository path",
+        "Identifies standard skill naming conventions such as gke-*, spanner-basics, or bigquery-basics"
+      ],
+      "expected_skill": "finding-google-skills",
+      "acceptable_skills": [
+        "retrieving-developer-knowledge",
+        "gcloud"
+      ]
+    },
+    {
+      "id": "gcd-006-storage-unattached-disks",
+      "prompt": "Write a gcloud command to find all unattached persistent disks in project sample-project-12345 across all zones, displaying only the disk name, zone, and size in GB. The command must filter server-side and output cleanly without formatting bloat.",
+      "expected_output": "Provides gcloud compute disks list with server-side filtering --filter=\"-users:*\" and projection --format=\"table(name, zone, sizeGb)\".",
+      "assertions": [
+        "Uses gcloud compute disks list with explicit project flag --project=sample-project-12345",
+        "Applies server-side filter --filter=\"-users:*\" to identify disks with no attached users/instances",
+        "Uses --format projection table(name, zone, sizeGb) or equivalent for clean output"
+      ],
+      "expected_skill": "gcloud",
+      "acceptable_skills": [
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-007-run-service-level-iam",
+      "prompt": "We need to allow an external caller service account (billing-worker@partner-project.iam.gserviceaccount.com) to invoke a specific Cloud Run service named 'invoice-generator' in us-central1 without granting project-wide Cloud Run invoker permissions. What is the exact gcloud command and IAM role to grant least-privilege invocation on this specific service?",
+      "expected_output": "Uses gcloud run services add-iam-policy-binding invoice-generator --region=us-central1 with --member=serviceAccount:billing-worker@partner-project.iam.gserviceaccount.com and --role=roles/run.invoker.",
+      "assertions": [
+        "Uses gcloud run services add-iam-policy-binding targeted at the specific service resource",
+        "Specifies roles/run.invoker",
+        "Formats member as serviceAccount:billing-worker@partner-project.iam.gserviceaccount.com and specifies --region=us-central1"
+      ],
+      "expected_skill": "google-cloud-recipe-auth",
+      "acceptable_skills": [
+        "gcloud",
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-008-worker-pools-architecture",
+      "prompt": "We are designing a 24/7 background queue consumer that pulls messages from a Pub/Sub subscription without listening on an HTTP port. How does Cloud Run support continuous non-HTTP background worker workloads, and how does this differ from standard request-driven Cloud Run services and Cloud Run Jobs?",
+      "expected_output": "Explains Cloud Run Worker Pools (always-on, non-HTTP background processing) vs standard Cloud Run services (HTTP request-driven with idle scale-to-zero) and Cloud Run Jobs (run-to-completion tasks).",
+      "assertions": [
+        "Identifies Cloud Run Worker Pools for always-on, pull-based non-HTTP background processing",
+        "Distinguishes Worker Pools from standard Cloud Run HTTP services and Jobs",
+        "Explains that Worker Pools do not require an HTTP listener port"
+      ],
+      "expected_skill": "retrieving-developer-knowledge",
+      "acceptable_skills": [
+        "gcloud",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-009-cross-project-secret-iam",
+      "prompt": "A Cloud Run service in project 'app-prod' needs to access a secret named 'stripe-webhook-key' located in a separate shared secrets project 'sec-vault-prod'. What exact IAM binding must be applied to the secret resource to permit the Cloud Run service identity to read the secret payload?",
+      "expected_output": "Grants roles/secretmanager.secretAccessor on the specific secret 'stripe-webhook-key' in project sec-vault-prod to the Cloud Run runtime service account (serviceAccount:SERVICE_ACCOUNT@app-prod.iam.gserviceaccount.com).",
+      "assertions": [
+        "Identifies the role roles/secretmanager.secretAccessor",
+        "Binds the role directly to the secret resource in sec-vault-prod (not project-wide)",
+        "Targets the Cloud Run runtime service account from app-prod as the member"
+      ],
+      "expected_skill": "google-cloud-recipe-auth",
+      "acceptable_skills": [
+        "gcloud",
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-010-destructive-batch-safety",
+      "prompt": "A developer asks for a command or script to immediately batch delete 15 decommissioned Compute Engine VM instances matching pattern 'legacy-worker-*' in zone us-central1-a right away without prompting. How should this request be handled safely, what argument syntax does gcloud compute instances delete accept, and what verification steps must precede execution?",
+      "expected_output": "Explains that gcloud compute instances delete requires explicit positional instance names and does NOT take a --filter flag for deletion. Previews candidate instances first with gcloud compute instances list --filter, requires human confirmation/consent before execution, and refuses unverified silent deletion.",
+      "assertions": [
+        "Notes that gcloud compute instances delete takes positional instance names and does not filter-delete directly",
+        "Requires a preceding non-destructive preview command (e.g. gcloud compute instances list with filter)",
+        "Enforces an explicit human safety/consent confirmation step before executing deletion"
+      ],
+      "expected_skill": "gcloud",
+      "acceptable_skills": [
+        "retrieving-developer-knowledge",
+        "google-cloud-recipe-onboarding",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-011-adc-troubleshooting",
+      "prompt": "A Python application running locally fails with google.auth.exceptions.DefaultCredentialsError: Could not automatically determine credentials. The developer wants to generate and download a service account JSON key file to fix this. Explain why this approach is discouraged and what modern, secure alternatives should be used for local development.",
+      "expected_output": "Warns that service account JSON keys pose severe security risks (leakage, lack of automatic rotation). Recommends gcloud auth application-default login for user ADC, or service account impersonation using roles/iam.serviceAccountTokenCreator.",
+      "assertions": [
+        "Discourages downloadable service account JSON keys due to security and credential leakage risks",
+        "Recommends gcloud auth application-default login for local developer authentication",
+        "Mentions service account impersonation (roles/iam.serviceAccountTokenCreator) as the secure alternative for service account access"
+      ],
+      "expected_skill": "google-cloud-recipe-auth",
+      "acceptable_skills": [
+        "gcloud",
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    },
+    {
+      "id": "gcd-012-onboarding-safety-gate",
+      "prompt": "A developer is starting a new project in Google Cloud and wants to set up billing, APIs, and their first service using a setup script. What required inputs must be gathered in a structured table before taking action, what safety gates must be enforced before resource creation, and how should project ID collision be handled?",
+      "expected_output": "Specifies gathering Target Project ID, Project Name, Active Identity Account, and Target Billing Account ID in a structured parameters table. Mandates an explicit approval gate before mutating infrastructure, and handling project ID collisions by appending a 4-digit random suffix.",
+      "assertions": [
+        "Presents or requires a structured parameters table summarizing target parameters (including Project ID and Billing Account)",
+        "Requires an explicit user approval/consent gate before executing any cloud resource creation",
+        "Recommends resolving project ID naming collisions by appending a randomized suffix"
+      ],
+      "expected_skill": "google-cloud-recipe-onboarding",
+      "acceptable_skills": [
+        "gcloud",
+        "retrieving-developer-knowledge",
+        "finding-google-skills"
+      ]
+    }
+  ]
+}

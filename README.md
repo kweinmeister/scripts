@@ -6,6 +6,7 @@ Welcome! This repository is a collection of useful scripts and configuration fil
 
 - 📄 **[litellm/](litellm/)**: Contains configurations for running a local [LiteLLM](https://github.com/BerriAI/litellm) proxy to connect with models from the [Vertex AI Model Garden](https://cloud.google.com/model-garden).
 - 📊 **[evals/google-cloud-developer/](evals/google-cloud-developer/)**: Evaluation dataset and rubric assertions for benchmarking AI coding agents with the Google Cloud Developer Plugin.
+- ✍️ **[evals/humanizer-skills/](evals/humanizer-skills/)**: Evaluation methodology, data sources, and helper scripts for benchmarking AI editing skills against direct prompt baselines.
 
 ## License
 

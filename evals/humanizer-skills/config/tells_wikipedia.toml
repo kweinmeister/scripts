@@ -1,0 +1,197 @@
+# Prose-level signs of AI writing from Wikipedia's "Signs of AI writing"
+# (WikiProject AI Cleanup), retrieved 2026-10-10. Markup, citation, and
+# edit-summary signs are omitted: they don't occur in plain prose.
+#
+# kind:     "word" (vocabulary, stock phrases), "structural" (sentence shapes), or
+#           "formatting" (Markdown headings, bold labels, emoji); word + structural = prose
+# taxonomy: category in Shaib, Chakrabarty et al. (2025), "Measuring AI 'Slop' in Text":
+#           density, relevance, factuality, bias, structure, coherence, tone
+# section:  the Wikipedia section the sign comes from
+# audit:    terms used to check whether a candidate skill's own files target this sign
+# Patterns are Python regexes, matched case-insensitively. No pruning is applied
+# against the corpus; per-pattern human vs. slop rates are published instead.
+
+[[tell]]
+id = "ai-vocabulary"
+kind = "word"
+taxonomy = "tone"
+section = "High density of AI vocabulary words"
+pattern = '''\b(additionally|bolster(s|ed|ing)?|crucial(ly)?|delv(e|es|ed|ing)|deep dive|enduring|garner(s|ed|ing)?|interplay|intricac(y|ies)|intricate(ly)?|meticulous(ly)?|pivotal|robust|showcas(e|es|ed|ing)|tapestry|testament|underscor(e|es|ed|ing)|vibrant|multifaceted|leverag(es|ing)|leverage (the|our|its|their|this|these|those|a|an)|foster(s|ed|ing)?|enhanc(e|es|ing))\b'''
+audit = ["delve", "tapestry", "testament", "pivotal", "crucial", "vibrant", "underscore", "showcase", "meticulous", "robust", "additionally", "foster", "leverage", "multifaceted"]
+
+[[tell]]
+id = "highlight-verb"
+kind = "word"
+taxonomy = "tone"
+section = "High density of AI vocabulary words"
+pattern = '''\bhighlight(s|ed|ing)? (the|its|his|her|their|our|how|a|an)\b'''
+audit = ["highlight"]
+
+[[tell]]
+id = "key-adjective"
+case_sensitive = true
+kind = "word"
+taxonomy = "tone"
+section = "High density of AI vocabulary words"
+pattern = '''\bkey (?!to\b|in\b|on\b|of\b|and\b|or\b|is\b|was\b|for\b|that\b|which\b)[a-z][a-z-]{2,}'''
+audit = ["key"]
+
+[[tell]]
+id = "abstract-landscape"
+kind = "word"
+taxonomy = "tone"
+section = "High density of AI vocabulary words"
+pattern = '''\b(evolving|changing|shifting|digital|competitive|political|cultural|economic|regulatory|media|payments?|financial|policy|research|technology|tech|business|market|global|broader|wider|current|legal|funding|threat|security|information) landscape\b|\blandscape of (the )?(existing|current|modern|today)'''
+audit = ["landscape"]
+
+[[tell]]
+id = "significance-legacy"
+kind = "word"
+taxonomy = "tone"
+section = "Undue emphasis on significance, legacy, and broader trends"
+pattern = '''\b(stands as|serves as a (testament|reminder)|is a (testament|reminder)|(crucial|pivotal|vital|significant|key) (role|moment)|underscores? (its|the) (importance|significance)|highlights? (its|the) (importance|significance)|reflects? (a )?broader|setting the stage for|marking (a|the) (new|turning|significant|pivotal|major|milestone|beginning|end|start|first|culmination|dawn)|shaping the (future|course|landscape)|key turning point|indelible mark|deeply rooted)\b'''
+audit = ["testament", "legacy", "significance", "pivotal moment", "setting the stage", "indelible", "broader"]
+
+[[tell]]
+id = "superficial-ing-analysis"
+kind = "structural"
+taxonomy = "density"
+section = "Superficial analyses"
+pattern = ''',\s+(highlighting|underscoring|emphasizing|ensuring|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|enhancing|showcasing|creating|enabling|allowing|paving the way|signaling|demonstrating|illustrating|solidifying|cementing|offering)\b'''
+audit = ["-ing", "participle", "highlighting", "underscoring", "ensuring", "reflecting", "symbolizing"]
+
+[[tell]]
+id = "valuable-insights-resonate"
+kind = "word"
+taxonomy = "tone"
+section = "Superficial analyses"
+pattern = '''\b(valuable insights?|resonat(e|es|ed|ing) with|align(s|ed)? (closely |perfectly )?with (the |our |your |their |its )?(goals?|values?|mission|vision|principles?|priorities|needs|objectives?|expectations|strategy))\b'''
+audit = ["valuable", "align with", "resonate"]
+
+[[tell]]
+id = "promotional"
+kind = "word"
+taxonomy = "tone"
+section = "Promotional and advertisement-like language"
+pattern = '''\b(boasts? a|rich (history|heritage|tradition|culture)|profound|exemplif(y|ies|ied)|commitment to|natural beauty|nestled|in the heart of|groundbreaking|renowned|diverse array|cultural heritage)\b'''
+audit = ["nestled", "boasts", "renowned", "groundbreaking", "in the heart of", "natural beauty", "rich", "commitment to", "promotional", "sales"]
+
+[[tell]]
+id = "vague-association"
+kind = "word"
+taxonomy = "density"
+section = "Vague expression of connection or association"
+pattern = '''\b((closely|widely|particularly|often|strongly|deeply|intimately|inextricably) (associated|connected|linked) (with|to)|has (long )?been associated with|is associated with (the|a) (rise|growth|development|history|legacy))\b'''
+audit = ["associated with", "in connection with", "connected to"]
+
+[[tell]]
+id = "vague-attribution"
+kind = "word"
+taxonomy = "factuality"
+section = "Vague attributions and overgeneralization of opinions"
+pattern = '''\b(industry reports|observers have (cited|noted)|experts (argue|say|believe|note)|some critics (argue|say)|several (sources|publications)|many (experts|observers))\b'''
+audit = ["experts argue", "observers", "industry reports", "vague attribution", "weasel"]
+
+[[tell]]
+id = "challenges-outlook"
+kind = "structural"
+taxonomy = "relevance"
+section = "Outline-like conclusions about challenges and future prospects"
+pattern = '''\b(despite (these|its|the|this) challenges|faces (several|many|numerous|a number of) challenges|future outlook|the future looks|looking ahead,|as we look (ahead|to the future))'''
+audit = ["challenges", "future outlook", "looking ahead", "despite these challenges"]
+
+[[tell]]
+id = "copulative-avoidance"
+kind = "structural"
+taxonomy = "structure"
+section = "Avoidance of basic copulatives"
+pattern = '''\b(serves as|stands? as (a|an|the)|functions as|boasts|represents (a|an)|features (a|an)|offers (a|an)|refers to (a|an|the) (term|concept|practice|process|idea|period|phenomenon))\b'''
+audit = ["serves as", "stands as", "copula", "functions as", "is/are"]
+
+[[tell]]
+id = "negative-parallelism"
+kind = "structural"
+taxonomy = "structure"
+section = "Negative parallelisms"
+pattern = '''(\bnot only\b[^.]{0,80}\bbut\b|\bnot just\b[^.]{0,80}\b(but|it'?s|it is)\b|\bit'?s not\b[^.]{0,60}[,;—–-]\s*it'?s\b|\bisn'?t (just|merely|simply)\b[^.]{0,60}\bit'?s\b|\bno [^,.]{1,30}, no [^,.]{1,30}, just\b)'''
+audit = ["not just", "not only", "not x but y", "negative parallel", "it's not"]
+
+[[tell]]
+id = "rather-than"
+kind = "structural"
+taxonomy = "structure"
+section = "Negative parallelisms"
+pattern = '''\brather than\b'''
+audit = ["rather than"]
+
+[[tell]]
+id = "rule-of-three"
+kind = "structural"
+taxonomy = "structure"
+section = "Rule of three"
+# Approximate: three short coordinated items. Human text also lists in threes,
+# so this pattern's human rate is the important comparison.
+pattern = '''(?<![\w’'])(?!(?:and|or)\b)[a-z][a-z-]*(?: (?!(?:and|or)\b)[a-z][a-z-]*){0,2}, (?!(?:and|or)\b)[a-z][a-z-]*(?: (?!(?:and|or)\b)[a-z][a-z-]*){0,2}, (and|or) [a-z][a-z-]*(?: (?!(?:and|or)\b)[a-z][a-z-]*){0,2}(?=[\s.,;:!?)]|$)'''
+# Names and citations: a capitalized word before the first comma and a capitalized second item.
+exclude = '''[A-Z][\w’'-]*, [A-Z]'''
+audit = ["rule of three", "triad", "threes", "triplet", "three items"]
+
+[[tell]]
+id = "em-dash"
+kind = "structural"
+taxonomy = "structure"
+section = "Overuse of em dashes (historical indicator, 2022 to September 2026)"
+pattern = '''—|\s–\s|\s--\s'''
+audit = ["em dash", "em-dash", "dash"]
+
+[[tell]]
+id = "collaborative-communication"
+kind = "word"
+taxonomy = "relevance"
+section = "Collaborative communication"
+pattern = '''\b(i hope this helps|let me know|feel free to|happy to help|great question|certainly!|of course!|would you like)\b'''
+audit = ["i hope this helps", "let me know", "chatbot", "great question"]
+
+# --- Formatting signs (Wikipedia "Style" section). Human originals are plain prose,
+# so these count only formatting a writer added.
+
+[[tell]]
+id = "markdown-heading"
+kind = "formatting"
+taxonomy = "structure"
+section = "Heading errors / Markdown headings in short prose"
+pattern = '''(?m)^#{1,6}\s+\S'''
+audit = ["heading", "headings", "markdown"]
+
+[[tell]]
+id = "title-case-heading"
+kind = "formatting"
+taxonomy = "structure"
+section = "Title case"
+case_sensitive = true
+pattern = '''(?m)^#{1,6}\s+(?:[A-Z][\w'’-]*\s+){2,}[A-Z][\w'’-]*\s*$'''
+audit = ["title case", "sentence case", "capitaliz"]
+
+[[tell]]
+id = "inline-header-list"
+kind = "formatting"
+taxonomy = "structure"
+section = "Inline-header vertical lists"
+pattern = '''(?m)^\s*(?:[-*+]|\d+[.)])\s+\*\*[^*\n]{1,60}\*\*:?'''
+audit = ["bold label", "inline-header", "labeled list", "bullet"]
+
+[[tell]]
+id = "decorative-bold"
+kind = "formatting"
+taxonomy = "tone"
+section = "Overuse of boldface"
+pattern = '''\*\*[^*\n]{1,80}\*\*'''
+audit = ["bold", "boldface"]
+
+[[tell]]
+id = "emoji"
+kind = "formatting"
+taxonomy = "tone"
+section = "Emoji as formatting"
+pattern = '''[\U0001F300-\U0001FAFF☀-➿⭐✅]'''
+audit = ["emoji"]

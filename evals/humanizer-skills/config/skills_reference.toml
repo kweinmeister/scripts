@@ -1,0 +1,61 @@
+# Pinned Upstream Skills Evaluated in the Benchmark
+#
+# Credit to the open-source maintainers who shared these workflows openly.
+# Pinned commits ensure benchmark reproducibility across all test runs.
+
+[prompt]
+skill_template = """Use /{skill} to edit `input.md` to remove signs of AI writing, if there are any. Keep the meaning, facts, and register. Don't ask clarifying questions. Write only the final text to `output.md`, with no change summary or notes."""
+control_template = """Edit `input.md` to remove signs of AI writing, if there are any. Keep the meaning, facts, and register. Don't ask clarifying questions. Write only the final text to `output.md`, with no change summary or notes."""
+
+[control]
+id = "control"
+name = "Direct Prompt Baseline"
+
+[[arm]]
+id = "humanizer"
+repo = "blader/humanizer"
+commit = "d4b81278e6604e237bf32f0f7ce5c217aee94269"
+subpath = ""
+skill = "humanizer"
+
+[[arm]]
+id = "unslop"
+repo = "theclaymethod/unslop"
+commit = "17ed39c9d0b522f44190ff0c6233867eadee192a"
+subpath = ""
+skill = "unslop"
+
+[[arm]]
+id = "humanize-writing"
+repo = "jpeggdev/humanize-writing"
+commit = "da03340e5bb38cdf412f697aca66d113560f75b2"
+subpath = ""
+skill = "humanize-writing"
+
+[[arm]]
+id = "content-humanizer"
+repo = "alirezarezvani/claude-skills"
+commit = "a80eec2267a93a681958164b27e74ff96a24f518"
+subpath = "marketing-skill/skills/content-humanizer"
+skill = "content-humanizer"
+
+[[arm]]
+id = "no-ai-slop"
+repo = "petergyang/no-ai-slop"
+commit = "000650b156983f5159695b441477f4e63b25dc85"
+subpath = "skills/no-ai-slop"
+skill = "no-ai-slop"
+
+[[arm]]
+id = "stop-slop"
+repo = "hardikpandya/stop-slop"
+commit = "8da1f030185bdfe8471220585162991eaeb970e9"
+subpath = ""
+skill = "stop-slop"
+
+[[arm]]
+id = "anti-ai-slop-writing"
+repo = "jalaalrd/anti-ai-slop-writing"
+commit = "a9e3d7bf8aafd964ebf53a76e4c9c7e629e07be7"
+subpath = "skills/anti-ai-slop-writing"
+skill = "anti-ai-slop-writing"

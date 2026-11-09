@@ -1,0 +1,123 @@
+# Modern AI Tell Reference Catalog
+#
+# This catalog bridges two categories of indicators:
+# 1. Modern Lexical Overuse: Words and connectors empirically overrepresented in
+#    current LLM drafts compared to pre-2022 human baseline writing on identical facts.
+# 2. Structural Patterns: Sentence and paragraph-level templates documented by
+#    editorial projects like Wikipedia's "Signs of AI writing".
+
+[lexical_frequency]
+notes = "Frequencies measured per 1,000 words across fact-grounded model rewrites versus historical human baseline texts."
+
+[[lexical_frequency.tokens]]
+token = "specifically"
+ratio_vs_human = 5.4
+human_rate_per_1k = 0.12
+ai_rate_per_1k = 0.64
+context = "Overused as a transitional focalizer and emphasis connector."
+
+[[lexical_frequency.tokens]]
+token = "essential"
+ratio_vs_human = 8.3
+human_rate_per_1k = 0.06
+ai_rate_per_1k = 0.49
+context = "Overused evaluative modifier to signal importance without concrete justification."
+
+[[lexical_frequency.tokens]]
+token = "though"
+ratio_vs_human = 5.0
+human_rate_per_1k = 0.28
+ai_rate_per_1k = 1.40
+context = "Frequent clause-linking contrast word."
+
+[[lexical_frequency.tokens]]
+token = "furthermore"
+ratio_vs_human = "Absent in baseline"
+human_rate_per_1k = 0.00
+ai_rate_per_1k = 0.32
+context = "Formal additive connector common in AI drafts, rare in authentic prose."
+
+[[lexical_frequency.tokens]]
+token = "vital"
+ratio_vs_human = "Absent in baseline"
+human_rate_per_1k = 0.00
+ai_rate_per_1k = 0.25
+context = "High-potency adjective favored by models for routine significance."
+
+[[lexical_frequency.tokens]]
+token = "alongside"
+ratio_vs_human = "Absent in baseline"
+human_rate_per_1k = 0.00
+ai_rate_per_1k = 0.22
+context = "Spatial/co-occurrence connector heavily relied upon in AI summaries."
+
+[[lexical_frequency.tokens]]
+token = "delve"
+ratio_vs_human = "Historical meme"
+human_rate_per_1k = 0.00
+ai_rate_per_1k = 0.04
+context = "Frequently targeted by early anti-slop rules, but largely dropped by modern frontier models (~1 per 25,000 words)."
+
+[[lexical_frequency.tokens]]
+token = "tapestry"
+ratio_vs_human = "Historical meme"
+human_rate_per_1k = 0.00
+ai_rate_per_1k = 0.02
+context = "Rare in current models, showing why static banned-word lists become outdated."
+
+# Structural and rhetorical patterns
+[[structural_patterns]]
+id = "staged-opener"
+category = "structure"
+description = "A generic, relatable opening thought that introduces a broad theme before pivoting to the topic."
+example = "When we think of Thanksgiving, we often conjure images of heavy feasts and family reunions. Yet..."
+detection_cue = "Begins with 'When we think of', 'In today's fast-paced world', or 'Throughout history'."
+
+[[structural_patterns]]
+id = "colon-question"
+category = "structure"
+description = "A reflective question held back behind a colon as a dramatic transition device."
+example = "Yet, as a folklorist, I find myself wondering: where is the music?"
+detection_cue = "Colon immediately preceding a direct rhetorical question."
+
+[[structural_patterns]]
+id = "negative-parallelism"
+category = "rhetoric"
+description = "A 'Not X, but Y' contrast construction used to create synthetic depth."
+example = "It is not merely a tool, but a transformative shift in how teams collaborate."
+detection_cue = "Phrasing matching 'not only... but', 'not just X, it's Y', or 'it is not X, but Y'."
+
+[[structural_patterns]]
+id = "forced-triad"
+category = "rhetoric"
+description = "A list of three parallel adjectives or actions chosen for rhythmic cadence rather than information."
+example = "The framework provides clarity, efficiency, and alignment across projects."
+detection_cue = "A series of exactly three short parallel terms joined by 'and' or 'or'."
+
+[[structural_patterns]]
+id = "copulative-avoidance"
+category = "tone"
+description = "Avoiding simple verbs like 'is' or 'has' in favor of grander substitutes."
+example = "The library serves as a testament to civic engagement."
+detection_cue = "Frequent substitution with 'serves as', 'stands as', 'functions as', or 'boasts'."
+
+[[structural_patterns]]
+id = "superficial-ing-clause"
+category = "syntax"
+description = "A trailing participial phrase tacked onto the end of a sentence to provide generic editorializing."
+example = "...the team updated the deployment manifest, ensuring seamless continuity and fostering long-term resilience."
+detection_cue = "Comma followed by trailing '-ing' verbs like highlighting, underscoring, reflecting, ensuring, fostering."
+
+[[structural_patterns]]
+id = "inline-bold-labels"
+category = "formatting"
+description = "Overly formulaic bullet lists where every item begins with a bolded category label."
+example = "- **Enhanced Reliability:** The system handles failover gracefully."
+detection_cue = "Consistent markdown list items beginning with '**Word/Phrase:**'."
+
+[[structural_patterns]]
+id = "decorative-emoji"
+category = "formatting"
+description = "Unprompted emoji icons used as bullet adornments or section markers in technical text."
+example = "🚀 Getting Started | 💡 Key Concept | ⚠️ Important Note"
+detection_cue = "Emoji characters positioned at the start of headings or list entries."

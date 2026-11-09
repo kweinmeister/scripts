@@ -6,8 +6,10 @@ Ported directly from the humanizer evaluation harness (src/bakeoff/cases.py).
 Each generated case directory contains:
 - prompt.md:   YAML frontmatter (plugins, tools, turn limits, timeout) and user prompt
 - case.yaml:   Evaluation harness hook referencing scaffold.sh
-- scaffold.sh: Deterministic bash script that writes input.md byte-for-byte using a unique heredoc
-- graders/:    Deterministic offline sanity checks (output.md exists, no appended change summaries, skill tool fired)
+- scaffold.sh: Deterministic bash script that writes input.md byte-for-byte using
+  a unique heredoc
+- graders/:    Deterministic offline sanity checks (output.md exists, no appended
+  change summaries, skill tool fired)
 
 Usage:
     # Scaffold from a folder of markdown files (*.md)
@@ -80,7 +82,10 @@ def staged_text(title: str, body: str) -> str:
 
 
 def scaffold_script(text: str) -> str:
-    """Return a bash script that writes text to input.md byte for byte without shell interpolation."""
+    """Return a bash script that writes text to input.md byte for byte.
+
+    Avoids shell interpolation.
+    """
     delimiter = f"BAKEOFF_INPUT_{secrets.token_hex(8).upper()}"
     while delimiter in text:
         delimiter = f"BAKEOFF_INPUT_{secrets.token_hex(8).upper()}"
@@ -181,7 +186,10 @@ def main() -> None:
     )
     parser.add_argument(
         "--data",
-        help='Optional JSON file containing passages [{"id": ..., "title": ..., "body": ...}]',
+        help=(
+            "Optional JSON file containing passages "
+            '[{"id": ..., "title": ..., "body": ...}]'
+        ),
     )
     parser.add_argument(
         "--output-dir", required=True, help="Destination directory for evaluation suite"
@@ -226,7 +234,8 @@ def main() -> None:
                 passages.append(Passage(id=p_id, title=title, body=body))
     else:
         parser.error(
-            "Must specify either --inputs-dir (folder of markdown files) or --data (JSON file)"
+            "Must specify either --inputs-dir (folder of markdown files) "
+            "or --data (JSON file)"
         )
 
     skill_template = DEFAULT_SKILL_TEMPLATE

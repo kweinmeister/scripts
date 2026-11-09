@@ -32,8 +32,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_CONFIG = SCRIPT_DIR.parent / "config" / "tells_wikipedia.toml"
 
 _NOT_GUIDANCE = re.compile(
-    r"(^|/)(evals?|tests?|docs|examples|assets|\.github)/|(^|/)(readme|changelog|contributing|"
-    r"license|agents|claude)\.md$",
+    r"(^|/)(evals?|tests?|docs|examples|assets|\.github)/|"
+    r"(^|/)(readme|changelog|contributing|license|agents|claude)\.md$",
     re.IGNORECASE,
 )
 
@@ -140,8 +140,10 @@ def main() -> None:
     else:
         for name, data in full_report.items():
             print(f"=== Skill Overlap Audit: {name} ===")
+            targeted = data["total_tells_targeted"]
+            share = data["share_targeted"]
             print(
-                f"Tells explicitly targeted: {data['total_tells_targeted']} / {len(tells)} ({data['share_targeted']:.1%})\n"
+                f"Tells explicitly targeted: {targeted} / {len(tells)} ({share:.1%})\n"
             )
             print(f"{'Tell ID':<28} {'Targeted?':<12} {'Matched Terms'}")
             print("-" * 65)

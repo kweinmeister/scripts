@@ -12,11 +12,24 @@ To evaluate how editing tools treat authentic human writing, the human baseline 
 
 Establishing that an online text predates modern large language models requires verification beyond the visible publication date:
 
-- **CMS Migrations Invalidate Publication Timestamps:** Web platforms frequently touch older content during site redesigns. In early sampling, older posts accessed through live APIs frequently reported 2023 or 2024 modification dates despite a 2021 byline. A passage should only be accepted if either an immutable archive record or an explicit server-level `modified_gmt` timestamp confirms that the prose itself was fixed before late 2022.
-- **Immutable Public Records:** Certain public record collections are legally or operationally fixed upon issuance:
+- **CMS Migrations Invalidate Publication Timestamps:** Web platforms frequently
+  touch older content during site redesigns. In early sampling, older posts accessed
+  through live APIs frequently reported 2023 or 2024 modification dates despite a
+  2021 byline. A passage should only be accepted if either an immutable archive
+  record or an explicit server-level `modified_gmt` timestamp confirms that the
+  prose itself was fixed before late 2022.
+- **Immutable Public Records:** Certain public record collections are legally or
+  operationally fixed upon issuance:
   - **Federal Register** final rules and preambles are permanent legal records.
-  - **National Weather Service** Area Forecast Discussions (AFDs) archived in meteorological repositories (such as the Iowa Environmental Mesonet) are append-only historical records.
-- **Extraction Artifacts Become Edit Targets:** Web scrapers often leave subtle artifacts: spaces before punctuation from stripped hyperlinks, leftover image caption markers, or footnote superscripts. If left uncleaned, editing agents "fix" these extraction bugs rather than editing authentic prose. Normalizing these artifacts upfront ensures the evaluation measures editorial cleanup rather than HTML sanitation.
+  - **National Weather Service** Area Forecast Discussions (AFDs) archived in
+    meteorological repositories (such as the Iowa Environmental Mesonet) are
+    append-only historical records.
+- **Extraction Artifacts Become Edit Targets:** Web scrapers often leave subtle
+  artifacts: spaces before punctuation from stripped hyperlinks, leftover image
+  caption markers, or footnote superscripts. If left uncleaned, editing agents
+  "fix" these extraction bugs rather than editing authentic prose. Normalizing
+  these artifacts upfront ensures the evaluation measures editorial cleanup
+  rather than HTML sanitation.
 
 ---
 

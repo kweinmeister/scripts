@@ -114,9 +114,10 @@ def load_wikipedia(path: Path = DEFAULT_CONFIG) -> Detector:
 
 
 def removal(input_counts: Counter[str], output_counts: Counter[str]) -> float | None:
-    """Return the share of input tell occurrences gone from the output, or None if input has 0 tells.
+    """Return the share of input tell occurrences gone from the output.
 
-    Counted by occurrence per pattern: e.g. six em dashes cut to one is 5/6 (83.3%) removed.
+    Returns None if input has 0 tells. Counted by occurrence per pattern:
+    e.g. six em dashes cut to one is 5/6 (83.3%) removed.
     """
     total = sum(input_counts.values())
     if not total:

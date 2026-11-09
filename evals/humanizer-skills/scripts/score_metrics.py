@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Deterministic per-output metrics for humanizer evaluations.
 
-Ported directly from the humanizer evaluation harness (src/bakeoff/metrics.py and src/bakeoff/corpus/text.py).
+Ported directly from the humanizer evaluation harness
+(src/bakeoff/metrics.py and src/bakeoff/corpus/text.py).
 
 Metrics:
 - Tokens: words, with each punctuation mark as its own token, case-sensitive.
@@ -10,7 +11,8 @@ Metrics:
 - Length ratio: output tokens / input tokens.
 - Edit precision: changed tokens falling in input sentences that contained an AI tell,
   divided by all changed tokens. Undefined (None) when nothing changed.
-- Appended change summary: checks if the model appended meta-commentary ("# Changes", "**What changed**").
+- Appended change summary: checks if the model appended meta-commentary
+  ("# Changes", "**What changed**").
 - Tell density: tells per 100 tokens.
 
 Usage:
@@ -149,7 +151,10 @@ def length_ratio(before: str, after: str) -> float:
 
 
 def sentences(paragraph: str) -> list[str]:
-    """Split a paragraph into sentences, avoiding breaking after abbreviations or initials."""
+    """Split a paragraph into sentences.
+
+    Avoids breaking after abbreviations or initials.
+    """
     out: list[str] = []
     for piece in (p.strip() for p in _SENTENCE_END.split(paragraph)):
         if not piece:
@@ -177,7 +182,7 @@ def sentence_spans(text: str) -> list[tuple[int, int]]:
 
 
 def _sentence_of(position: int, spans: list[tuple[int, int]]) -> int:
-    """Return the index of the sentence containing (or nearest before) a character position."""
+    """Return index of sentence containing (or nearest before) position."""
     best = 0
     for i, (start, _end) in enumerate(spans):
         if start <= position:
@@ -190,7 +195,7 @@ def _sentence_of(position: int, spans: list[tuple[int, int]]) -> int:
 def edit_precision(
     before: str, after: str, tell_spans: list[tuple[int, int]]
 ) -> tuple[float | None, int]:
-    """Return (edit precision, changed token count) for an edit of `before` into `after`.
+    """Return (edit precision, changed tokens) for editing `before` into `after`.
 
     Every replaced or deleted input token belongs to the sentence it was in; inserted
     tokens belong to the input sentence at the insertion point. A token counts as on
@@ -253,7 +258,10 @@ def main() -> None:
     parser.add_argument("--after", required=True, help="Path to output.md (post-edit)")
     parser.add_argument(
         "--tell-spans",
-        help="Optional JSON file or string of tell spans [[start, end], ...] for edit precision",
+        help=(
+            "Optional JSON file or string of tell spans [[start, end], ...] "
+            "for edit precision"
+        ),
     )
     parser.add_argument(
         "--json", action="store_true", help="Output machine-readable JSON"
@@ -316,15 +324,15 @@ def main() -> None:
         print("=== Deterministic Output Metrics ===")
         print(f"Preservation:             {pres:.1%} (1.0 = untouched)")
         print(f"Change amount:            {chg:.1%}")
-        print(
-            f"Length ratio:             {lr:.2f}x ({results['output_tokens']} / {results['input_tokens']} tokens)"
-        )
-        print(
-            f"Appended change summary:  {'YES (penalty)' if summary_appended else 'NO (clean)'}"
-        )
+        in_toks = results["input_tokens"]
+        out_toks = results["output_tokens"]
+        print(f"Length ratio:             {lr:.2f}x ({out_toks} / {in_toks} tokens)")
+        summary_label = "YES (penalty)" if summary_appended else "NO (clean)"
+        print(f"Appended change summary:  {summary_label}")
         if prec is not None:
             print(
-                f"Edit precision:           {prec:.1%} of changed tokens on tell sentences ({changed_toks} changed)"
+                f"Edit precision:           {prec:.1%} of changed tokens "
+                f"on tell sentences ({changed_toks} changed)"
             )
 
 

@@ -28,44 +28,46 @@ import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 # Try rapidfuzz for C-accelerated Levenshtein; fallback to pure Python
 try:
     from rapidfuzz.distance import Levenshtein as _rf_Levenshtein  # type: ignore
-
-    def _token_levenshtein(a: list[str], b: list[str]) -> int:
-        return _rf_Levenshtein.distance(a, b)
-
-    def _token_opcodes(a: list[str], b: list[str]):
-        return _rf_Levenshtein.opcodes(a, b)
-
 except ImportError:
+    _rf_Levenshtein = None
 
-    def _token_levenshtein(a: list[str], b: list[str]) -> int:
-        if len(a) < len(b):
-            a, b = b, a
-        if not b:
-            return len(a)
-        prev = list(range(len(b) + 1))
-        for x in a:
-            curr = [prev[0] + 1] + [0] * len(b)
-            for j, y in enumerate(b):
-                cost = 0 if x == y else 1
-                curr[j + 1] = min(curr[j] + 1, prev[j + 1] + 1, prev[j] + cost)
-            prev = curr
-        return prev[len(b)]
 
-    @dataclass(frozen=True)
-    class _OpCode:
-        tag: str
-        src_start: int
-        src_end: int
-        dest_start: int
-        dest_end: int
+@dataclass(frozen=True)
+class _OpCode:
+    tag: str
+    src_start: int
+    src_end: int
+    dest_start: int
+    dest_end: int
 
-    def _token_opcodes(a: list[str], b: list[str]):
-        matcher = difflib.SequenceMatcher(None, a, b)
-        return [_OpCode(*op) for op in matcher.get_opcodes()]
+
+def _token_levenshtein(a: list[str], b: list[str]) -> int:
+    if _rf_Levenshtein is not None:
+        return int(_rf_Levenshtein.distance(a, b))
+    if len(a) < len(b):
+        a, b = b, a
+    if not b:
+        return len(a)
+    prev = list(range(len(b) + 1))
+    for x in a:
+        curr = [prev[0] + 1] + [0] * len(b)
+        for j, y in enumerate(b):
+            cost = 0 if x == y else 1
+            curr[j + 1] = min(curr[j] + 1, prev[j + 1] + 1, prev[j] + cost)
+        prev = curr
+    return prev[len(b)]
+
+
+def _token_opcodes(a: list[str], b: list[str]) -> Any:
+    if _rf_Levenshtein is not None:
+        return _rf_Levenshtein.opcodes(a, b)
+    matcher = difflib.SequenceMatcher(None, a, b)
+    return [_OpCode(*op) for op in matcher.get_opcodes()]
 
 
 _TOKEN = re.compile(r"\w+(?:['’]\w+)*|[^\w\s]")

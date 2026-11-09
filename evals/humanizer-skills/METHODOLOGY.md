@@ -6,7 +6,7 @@ Evaluating whether automated editing skills improve text quality requires a rigo
 
 ## 1. Experimental Design & Arms
 
-The benchmark compares eight experimental arms across 200 input passages, repeated across $k=3$ independent trials (totaling 4,800 agent runs):
+The benchmark compares eight experimental arms across 200 input passages, repeated across $k=3$ independent trials:
 
 - **Control Arm:** A direct, unspecialized editing prompt executed by the baseline model without external skills.
 - **Seven Community Skill Arms:** Pinned versions of community open-source editing skills.

@@ -8,7 +8,7 @@ The evaluation examines a central question for AI-assisted writing workflows: **
 
 ## Executive Summary & Core Insights
 
-The benchmark tested seven community editing skills alongside an unspecialized control prompt across 200 passages (50 pre-LLM human texts across 5 federal genres, and 150 fact-matched model rewrites) across $k=3$ trials for **4,800 total agent runs** on `claude-sonnet-5-5`.
+In reference evaluations, seven community editing skills were benchmarked alongside an unspecialized control prompt across 200 passages (50 pre-LLM human texts across 5 federal genres, and 150 fact-matched model rewrites) over multiple independent trials on `claude-sonnet-5-5`.
 
 ```text
                   THE EDITORIAL PARETO FRONTIER
@@ -44,7 +44,7 @@ The benchmark tested seven community editing skills alongside an unspecialized c
    - **Transformative / Brand-Voice Archetype:** Reconstructs prose around active hooks and conversational cadence (~40% tell removal, ~85% preservation).
    - **Rule-Enforced / Constraint Archetype:** Zero-tolerance imperatives (such as blanket bans on passive voice) frequently rewrite authentic human cadences and invent ungrounded subjects.
 4. **Agents Rely on In-Context Rules (Scripts are Skipped):**
-   Across 4,800 sandboxed runs with full Bash access, models invoked bundled Python scanner scripts **0 of 600 times**. Models consistently audit text directly in context and skip external relative script calls or passive reference links. Guidance must be inline or explicitly loaded upfront.
+   Across sandboxed test runs with full Bash access, models invoked bundled Python scanner scripts **0 of 600 times**. Models consistently audit text directly in context and skip external relative script calls or passive reference links. Guidance must be inline or explicitly loaded upfront.
 5. **The Initial Drafting Model Matters Far More than the Skill:**
    Moving from a lightweight or open-weight model to a high-end reasoning model eliminates ~6.6 tells per 1,000 words _before editing_. In contrast, upgrading from a plain prompt to the cleanest editing skill gains only 0.6 to 1.1 tells per 1,000 words.
 
